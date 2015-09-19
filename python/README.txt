@@ -4,6 +4,12 @@ and the downloaded lab files.
 
 TO RUN:
 
+first make sure run.sh is executable
+
+>chmod +x run.sh
+
+then...
+
 >./run.sh
 
 NOTE:
