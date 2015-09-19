@@ -1,0 +1,5 @@
+{
+  "bed_files_dir": "bed/",
+  "ftp_site": "ftp.ncbi.nlm.nih.gov",
+  "base_dir": "/variation/get-rm/current/exome_capture_reagents"
+}
