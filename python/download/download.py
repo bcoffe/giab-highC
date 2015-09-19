@@ -17,9 +17,9 @@ def downloadFiles(ftp_connection, path):
         sys.exit("ending session")
 
     #list children:
-    filelist=ftp_connection.nlst()
+    file_list=ftp_connection.nlst()
 
-    for file in filelist:
+    for file in file_list:
         try:
             # This will check if file is folder:
             ftp_connection.cwd(path + "/" + file + "/")
@@ -48,6 +48,7 @@ def load_defaults():
 def create_download_dir():
     if os.path.exists(bed_files_dir):
         shutil.rmtree(bed_files_dir)
+        os.makedirs(bed_files_dir)
     else:
         os.makedirs(bed_files_dir)
 
@@ -63,7 +64,6 @@ def main(argv):
     load_defaults()
     create_download_dir()
     get_bed_files()
-    print bed_files_dir
 
 
 # Not using the command line argument at moment but may later so just including it for now
