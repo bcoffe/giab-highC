@@ -1,4 +1,3 @@
-import sys
 import ftplib
 import shutil
 import json
