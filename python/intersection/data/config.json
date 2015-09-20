@@ -1,0 +1,5 @@
+{
+  "bed_files_dir": "../download/bed/",
+  "output_dir": "intersect_output/",
+  "genes_file": "data/ACMG_56genes.bed"
+}

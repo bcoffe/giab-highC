@@ -10,13 +10,15 @@ __author__ = 'Brent Coffey'
 
 
 def load_defaults():
-    config_data = json.loads(open('config.json').read())
+    config_data = json.loads(open('data/config.json').read())
 
     global bed_files_dir
     global output_dir
+    global genes_file
 
     bed_files_dir = config_data['bed_files_dir']
     output_dir = config_data['output_dir']
+    genes_file = config_data['genes_file']
 
 
 def get_bed_files():
@@ -28,12 +30,21 @@ def get_bed_files():
     return bed_files
 
 
-def intersection(master_file, lab_file):
+def intersection(master_file, choices, all_bed_files):
     try:
-        master = pybedtools.BedTool(master_file)
-        lab = pybedtools.BedTool(lab_file)
-        master.intersect(lab_file).saveas(output_dir + "out_" + ntpath.basename(lab_file))
-        print (master + lab).count()
+        bed_files = []
+        for choice in choices:
+            bed_files.append(pybedtools.BedTool(all_bed_files[int(choice)-1]))
+
+        if len(choices) < 3:
+            bed_files[0].intersect(bed_files[1]).saveas(output_dir + "out_intersect_" +
+                                                        ntpath.basename(all_bed_files[int(choices[0])-1]) + "_" +
+                                                        ntpath.basename(all_bed_files[int(choices[1])-1]))
+        else:
+            bed_files[0].intersect(bed_files[1], b=[bed_files[2]]).saveas(output_dir + "out_intersect_" +
+                                                        ntpath.basename(all_bed_files[int(choices[0])-1]) + "_" +
+                                                        ntpath.basename(all_bed_files[int(choices[1])-1]) + "_" +
+                                                        ntpath.basename(all_bed_files[int(choices[2])-1]))
 
     except pybedtools.helpers.BEDToolsError:
         print "Hmm....something is wrong with the file, is it a valid bed file?"
@@ -58,12 +69,26 @@ def main(argv):
     load_defaults()
     create_output_dir()
     bed_files = get_bed_files()
+
     master_file = get_master_file(bed_files)
-    bed_files.remove(master_file)
-    print "File 1: " + master_file
+
+    # Uncomment this later...as we will want to compare the labs to this NIST file
+    # for now we are just going to treat it like any other lab for testing purposes.
+    #bed_files.remove(master_file)
+    
+    i = 1
+    print "Choose 2 or 3 files to intersect by separating with comma: (ex: 1,2,3)"
+    print "NOTE: You must pick at least 2 files"
     for lab_file in bed_files:
-        print "File being intersected with NIST file: " + lab_file
-        intersection(master_file, lab_file)
+        print "(" + str(i) + ") " + ntpath.basename(lab_file)
+        i += 1
+
+    choices = list(input("Choices > "))
+
+    if len(choices) > 3 or len(choices) < 2:
+        print "Error... You must pick at least 2 files and no more than 3"
+    else:
+        intersection(master_file, choices, bed_files)
 
 
 # Not using the command line argument at moment but may later so just including it for now
