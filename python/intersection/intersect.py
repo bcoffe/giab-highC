@@ -31,6 +31,7 @@ def get_bed_files():
 
 
 def intersection(master_file, choices, all_bed_files):
+    print "Intersecting files....this may take some time...."
     try:
         bed_files = []
         for choice in choices:
@@ -45,6 +46,8 @@ def intersection(master_file, choices, all_bed_files):
                                                         ntpath.basename(all_bed_files[int(choices[0])-1]) + "_" +
                                                         ntpath.basename(all_bed_files[int(choices[1])-1]) + "_" +
                                                         ntpath.basename(all_bed_files[int(choices[2])-1]))
+
+        print "All Done"
 
     except pybedtools.helpers.BEDToolsError:
         print "Hmm....something is wrong with the file, is it a valid bed file?"
@@ -75,7 +78,7 @@ def main(argv):
     # Uncomment this later...as we will want to compare the labs to this NIST file
     # for now we are just going to treat it like any other lab for testing purposes.
     #bed_files.remove(master_file)
-    
+
     i = 1
     print "Choose 2 or 3 files to intersect by separating with comma: (ex: 1,2,3)"
     print "NOTE: You must pick at least 2 files"
@@ -83,12 +86,15 @@ def main(argv):
         print "(" + str(i) + ") " + ntpath.basename(lab_file)
         i += 1
 
-    choices = list(input("Choices > "))
+    try:
+        choices = list(input("Choices > "))
 
-    if len(choices) > 3 or len(choices) < 2:
-        print "Error... You must pick at least 2 files and no more than 3"
-    else:
-        intersection(master_file, choices, bed_files)
+        if len(choices) > 3 or len(choices) < 2:
+            print "Error... You must pick at least 2 files and no more than 3"
+        else:
+            intersection(master_file, choices, bed_files)
+    except:
+        print "Error... You must pick at least 2 files and no more than 3 and they must be comma seperated (ex:1,2,3)"
 
 
 # Not using the command line argument at moment but may later so just including it for now
