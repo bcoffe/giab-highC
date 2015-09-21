@@ -79,12 +79,10 @@ def main(argv):
     # for now we are just going to treat it like any other lab for testing purposes.
     #bed_files.remove(master_file)
 
-    i = 1
     print "Choose 2 or 3 files to intersect by separating with comma: (ex: 1,2,3)"
     print "NOTE: You must pick at least 2 files"
-    for lab_file in bed_files:
-        print "(" + str(i) + ") " + ntpath.basename(lab_file)
-        i += 1
+    for i, lab_file in enumerate(bed_files):
+        print "(" + str(i+1) + ") " + ntpath.basename(lab_file)
 
     try:
         choices = list(input("Choices > "))
