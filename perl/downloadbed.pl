@@ -3,11 +3,12 @@
 use LWP::Simple;
 use Archive::Tar;
 
-# todo: put in a config file
-$dir = 'bed/';#fill in wherever you want to save your bed file
+
+$dir = 'bed/';# todo: fill in wherever you want to save your bed file
 $newbed = 'GeT-RM.bed';
 $page = 'ftp://ftp.ncbi.nlm.nih.gov/variation/get-rm/current/exome_capture_reagents/';
 $webpage = get("$page");
+
 #Assign colors to each file
 my @colors= qw(255,0,0 255,255,0 102,204,0 0,128,255 128,128,128 255,128,0 127,0,255 0,0,0 255,0,127 153,255,204 255,204,153 178,255,102 51,255,153 102,0,51);
 my @colorsx3 = (@colors,@colors,@colors);
@@ -16,7 +17,7 @@ my $col = 0;
 #Create combined bed file
 # todo: this assumes directory already exist
 open $out,">","$dir$newbed";
-print $out 'track name="GeT-RM regions for NA12878" description="',$page,'" gffTags=on itemRgb=on',"\n";
+print $out 'track name="GeT-RM regions for NA12878" description="',$page,'" gffTags=on itemRgb=on visibility=2',"\n";
 
 #Get list of folders/companies
 GET_FOLDERS:foreach my $folder (split("\n", $webpage)){
@@ -26,7 +27,7 @@ GET_FOLDERS:foreach my $folder (split("\n", $webpage)){
 	$comp = get("$page$folders[1]");
 	#Get list of bed files
 	foreach my $file (split("\n",$comp)){
-		@files = split/2014 /,$file unless ($file =~ /NA19240/g);
+		@files = split/2014 /,$file unless ($file =~ /NA19240|NIST/g);
 		@filename = split/converted_|\.bed/,$files[1];
 		$bedfile = get ("$page$folders[1]/$files[1]");
 		$color = $colorsx3[$col];
