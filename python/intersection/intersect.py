@@ -30,26 +30,36 @@ def get_bed_files():
     return bed_files
 
 
-def intersection(master_file, choices, all_bed_files):
+def intersection(bed_file_paths):
     print "Intersecting files....this may take some time...."
     try:
-        bed_files = []
-        for choice in choices:
-            bed_files.append(pybedtools.BedTool(all_bed_files[int(choice)-1]))
+        # fn_bed_files = []
+        # for bed_file_path in bed_file_paths:
+        #     fn_bed_files.append((pybedtools.BedTool(bed_file_path)))
+        # print fn_bed_files
 
-        if len(choices) < 3:
-            bed_files[0].intersect(bed_files[1]).saveas(output_dir + "out_intersect_" +
-                                                        ntpath.basename(all_bed_files[int(choices[0])-1]) + "_" +
-                                                        ntpath.basename(all_bed_files[int(choices[1])-1]))
-        else:
-            bed_files[0].intersect(bed_files[1], b=[bed_files[2]]).saveas(output_dir + "out_intersect_" +
-                                                        ntpath.basename(all_bed_files[int(choices[0])-1]) + "_" +
-                                                        ntpath.basename(all_bed_files[int(choices[1])-1]) + "_" +
-                                                        ntpath.basename(all_bed_files[int(choices[2])-1]))
+        print bed_file_paths
+        print str(len(bed_file_paths))
+        x = pybedtools.BedTool()
+        x.multi_intersect(i=bed_file_paths).saveas(output_dir + "all_labs_multi_intersect.bed")
+
+        # if len(choices) < 3:
+        #     bed_files[0].intersect(bed_files[1]).saveas(output_dir + "out_intersect_" +
+        #                                                 ntpath.basename(all_bed_files[int(choices[0])-1]) + "_" +
+        #                                                 ntpath.basename(all_bed_files[int(choices[1])-1]))
+        # else:
+        #     bed_files[0].intersect(bed_files[1], b=[bed_files[2]]).saveas(output_dir + "out_intersect_" +
+        #                                                 ntpath.basename(all_bed_files[int(choices[0])-1]) + "_" +
+        #                                                 ntpath.basename(all_bed_files[int(choices[1])-1]) + "_" +
+        #                                                 ntpath.basename(all_bed_files[int(choices[2])-1]))
 
         print "All Done"
 
     except pybedtools.helpers.BEDToolsError:
+        print sys.exc_type
+        print sys.exc_info()
+        print sys.exc_traceback
+        print sys.exc_value
         print "Hmm....something is wrong with the file, is it a valid bed file?"
         print "Ignoring file and moving on to next file..."
 
@@ -71,28 +81,15 @@ def get_master_file(bed_files):
 def main(argv):
     load_defaults()
     create_output_dir()
-    bed_files = get_bed_files()
+    bed_file_paths = get_bed_files()
 
-    master_file = get_master_file(bed_files)
+    #master_file = get_master_file(bed_files)
 
     # Uncomment this later...as we will want to compare the labs to this NIST file
     # for now we are just going to treat it like any other lab for testing purposes.
     #bed_files.remove(master_file)
 
-    print "Choose 2 or 3 files to intersect by separating with comma: (ex: 1,2,3)"
-    print "NOTE: You must pick at least 2 files"
-    for i, lab_file in enumerate(bed_files):
-        print "(" + str(i+1) + ") " + ntpath.basename(lab_file)
-
-    try:
-        choices = list(input("Choices > "))
-
-        if len(choices) > 3 or len(choices) < 2:
-            print "Error... You must pick at least 2 files and no more than 3"
-        else:
-            intersection(master_file, choices, bed_files)
-    except:
-        print "Error... You must pick at least 2 files and no more than 3 and they must be comma seperated (ex:1,2,3)"
+    intersection(bed_file_paths)
 
 
 # Not using the command line argument at moment but may later so just including it for now
