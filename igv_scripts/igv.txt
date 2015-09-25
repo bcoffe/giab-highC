@@ -1,0 +1,5 @@
+new
+genome hg19
+load  /Users/coffeybd/Development/capstone/giab-highC/ui/data/bed/ACMG_56genes.bed
+load  /Users/coffeybd/Development/capstone/giab-highC/ui/data/bed/GeT-RM-1lab.bed
+goto chr1:201,039,500-201,377,765
