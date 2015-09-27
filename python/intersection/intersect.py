@@ -3,7 +3,6 @@ import re
 import sys
 import os
 import shutil
-import ntpath
 import pybedtools
 
 __author__ = 'Brent Coffey'
@@ -15,45 +14,62 @@ def load_defaults():
     global bed_files_dir
     global output_dir
     global genes_file
+    global sorted_bed_dir
 
     bed_files_dir = config_data['bed_files_dir']
     output_dir = config_data['output_dir']
     genes_file = config_data['genes_file']
+    sorted_bed_dir = config_data['sorted_bed_dir']
 
 
-def get_bed_files():
-    bed_files = []
+def exome_sequence(file_name):
+    return re.search("\wExome\w", file_name, re.IGNORECASE)
+
+
+def nist_sequence(file_name):
+    return re.search("\wNIST\w", file_name, re.IGNORECASE)
+
+def na19240(file_name):
+    return re.search("\w19240\w", file_name, re.IGNORECASE)
+
+def empty_file(file_name):
+    file_size = os.stat(file_name).st_size
+    return os.stat(file_name).st_size == 0
+
+
+def created_sorted_dir():
+    if os.path.exists(sorted_bed_dir):
+        shutil.rmtree(sorted_bed_dir)
+        os.makedirs(sorted_bed_dir)
+    else:
+        os.makedirs(sorted_bed_dir)
+
+def get_sorted_bed_file_paths():
+    sorted_bed_file_paths = []
     for root, dirs, files in os.walk(bed_files_dir):
         for file_name in files:
-            if not file_name.startswith('.') and file_name.endswith(".bed"):
-                bed_files.append(os.path.join(root, file_name))
-    return bed_files
+            full_path_name = os.path.join(root, file_name)
+            if not file_name.startswith('.') \
+                    and file_name.endswith(".bed") \
+                    and not empty_file(full_path_name)\
+                    and not exome_sequence(full_path_name)\
+                    and not nist_sequence(full_path_name)\
+                    and not na19240(full_path_name):
+                sorted = pybedtools.BedTool(full_path_name).sort()
+                sorted.saveas(sorted_bed_dir + file_name)
+                sorted_bed_file_paths.append(sorted_bed_dir + file_name)
+
+    return sorted_bed_file_paths
 
 
 def intersection(bed_file_paths):
     print "Intersecting files....this may take some time...."
     try:
-        # fn_bed_files = []
-        # for bed_file_path in bed_file_paths:
-        #     fn_bed_files.append((pybedtools.BedTool(bed_file_path)))
-        # print fn_bed_files
-
-        print bed_file_paths
-        print str(len(bed_file_paths))
         x = pybedtools.BedTool()
         x.multi_intersect(i=bed_file_paths).saveas(output_dir + "all_labs_multi_intersect.bed")
 
-        # if len(choices) < 3:
-        #     bed_files[0].intersect(bed_files[1]).saveas(output_dir + "out_intersect_" +
-        #                                                 ntpath.basename(all_bed_files[int(choices[0])-1]) + "_" +
-        #                                                 ntpath.basename(all_bed_files[int(choices[1])-1]))
-        # else:
-        #     bed_files[0].intersect(bed_files[1], b=[bed_files[2]]).saveas(output_dir + "out_intersect_" +
-        #                                                 ntpath.basename(all_bed_files[int(choices[0])-1]) + "_" +
-        #                                                 ntpath.basename(all_bed_files[int(choices[1])-1]) + "_" +
-        #                                                 ntpath.basename(all_bed_files[int(choices[2])-1]))
-
-        print "All Done"
+        print "All Done.."
+        print "Created Output File: " + output_dir + "all_labs_multi_intersect.bed"
 
     except pybedtools.helpers.BEDToolsError:
         print sys.exc_type
@@ -81,15 +97,12 @@ def get_master_file(bed_files):
 def main(argv):
     load_defaults()
     create_output_dir()
-    bed_file_paths = get_bed_files()
+    created_sorted_dir()
+    sorted_bed_file_paths = get_sorted_bed_file_paths()
 
-    #master_file = get_master_file(bed_files)
+    print(sorted_bed_file_paths)
 
-    # Uncomment this later...as we will want to compare the labs to this NIST file
-    # for now we are just going to treat it like any other lab for testing purposes.
-    #bed_files.remove(master_file)
-
-    intersection(bed_file_paths)
+    intersection(sorted_bed_file_paths)
 
 
 # Not using the command line argument at moment but may later so just including it for now
