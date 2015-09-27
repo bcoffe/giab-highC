@@ -23,7 +23,9 @@ def load_defaults():
 
 
 def exome_sequence(file_name):
-    return re.search("\wExome\w", file_name, re.IGNORECASE)
+    return re.search(".Exome.", file_name, re.IGNORECASE) \
+           or re.search(".GPS_WUSTL_SureSelectAllExon.", file_name, re.IGNORECASE) \
+           or re.search(".UCSF_WES_AgilentV4.", file_name, re.IGNORECASE)
 
 
 def nist_sequence(file_name):
@@ -63,10 +65,31 @@ def get_sorted_bed_file_paths():
 
 
 def intersection(bed_file_paths):
+    pattern = re.compile("^.+?\t.+?\t.+?\t.*?([0-9])")
     print "Intersecting files....this may take some time...."
     try:
         x = pybedtools.BedTool()
         x.multi_intersect(i=bed_file_paths).saveas(output_dir + "all_labs_multi_intersect.bed")
+
+        one_lab = open(output_dir + "1lab.bed", 'w')
+        two_lab = open(output_dir + "2lab.bed", 'w')
+        three_lab = open(output_dir + "3_or_more_lab.bed", 'w')
+
+        with open(output_dir + "all_labs_multi_intersect.bed",'r') as f:
+            for line in f:
+                labs_confident = pattern.match(line)
+                if labs_confident is not None:
+                    num_labs = int(labs_confident.group(1))
+                    if num_labs == 1:
+                        one_lab.write(line)
+                    elif num_labs == 2:
+                        two_lab.write(line)
+                    else:
+                        three_lab.write(line)
+
+        one_lab.close()
+        two_lab.close()
+        three_lab.close()
 
         print "All Done.."
         print "Created Output File: " + output_dir + "all_labs_multi_intersect.bed"
@@ -99,8 +122,6 @@ def main(argv):
     create_output_dir()
     created_sorted_dir()
     sorted_bed_file_paths = get_sorted_bed_file_paths()
-
-    print(sorted_bed_file_paths)
 
     intersection(sorted_bed_file_paths)
 

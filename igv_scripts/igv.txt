@@ -1,5 +1,7 @@
 new
 genome hg19
-load  /Users/coffeybd/Development/capstone/giab-highC/ui/data/bed/ACMG_56genes.bed
-load  /Users/coffeybd/Development/capstone/giab-highC/ui/data/bed/GeT-RM-1lab.bed
-goto chr1:201,039,500-201,377,765
+load  ../ui/data/bed/ACMG_56genes.bed
+load  ../python/intersection/intersect_output/1lab.bed
+load  ../python/intersection/intersect_output/2lab.bed
+load  ../python/intersection/intersect_output/3_or_more_lab.bed
+goto chr1:201,039,500-201,677,765
