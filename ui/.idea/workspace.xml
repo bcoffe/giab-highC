@@ -24,8 +24,13 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.16666667">
               <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+=======
+            <state vertical-scroll-proportion="0.64285713">
+              <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
+>>>>>>> origin/master
               <folding />
             </state>
           </provider>
@@ -243,8 +248,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="4" y="23" width="1436" height="877" extended-state="0" />
     <editor active="true" />
+=======
+    <frame x="4" y="23" width="1436" height="877" extended-state="6" />
+    <editor active="false" />
+>>>>>>> origin/master
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -373,6 +383,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="114" column="40" selection-start-line="114" selection-start-column="28" selection-end-line="114" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -490,6 +501,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-18.75">
           <caret line="30" column="67" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -497,6 +509,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="85.125">
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -568,6 +581,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="114" column="40" selection-start-line="114" selection-start-column="28" selection-end-line="114" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -655,8 +669,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.16666667">
           <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+=======
+        <state vertical-scroll-proportion="0.64285713">
+          <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
+>>>>>>> origin/master
           <folding />
         </state>
       </provider>
