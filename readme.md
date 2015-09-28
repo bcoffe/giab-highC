@@ -17,7 +17,7 @@ Coming Soon...
 ## API Reference
 
 To run all the scripts you must have NodeJS installed and in your path.
-NOTE: This has only been tested on Mac OS X and have an internet connection
+NOTE: This has only been tested on Mac OS X and have an internet connection. This also assumes one has python 2.7.10 and pybedtools installed.
 
 This command will run all the scripts and load the data into IGV on both a web page and in the Java IGV from broad.
 
