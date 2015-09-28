@@ -24,8 +24,8 @@ def load_defaults():
 
 def exome_sequence(file_name):
     return re.search(".Exome.", file_name, re.IGNORECASE) \
-           or re.search(".GPS_WUSTL_SureSelectAllExon.", file_name, re.IGNORECASE) \
-           or re.search(".UCSF_WES_AgilentV4.", file_name, re.IGNORECASE)
+           or re.search(".GPS_WUSTL_Sure_Select_All_Exon.", file_name, re.IGNORECASE) \
+           or re.search(".UCSF_WES_Agilent.", file_name, re.IGNORECASE)
 
 
 def nist_sequence(file_name):
