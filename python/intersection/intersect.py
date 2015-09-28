@@ -65,7 +65,7 @@ def get_sorted_bed_file_paths():
 
 
 def intersection(bed_file_paths):
-    pattern = re.compile("^.+?\t.+?\t.+?\t.*?([0-9])")
+    pattern = re.compile("^.+?\t.+?\t.+?\t.*?([0-9]+)")
     print "Intersecting files....this may take some time...."
     try:
         x = pybedtools.BedTool()
