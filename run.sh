@@ -12,4 +12,15 @@ python intersect.py
 
 printf "**Loading Tracks into IGV\n\n"
 cd ../../IGV_2.3.60
-./igv.sh
+./igv.sh &
+
+printf "**Starting Local Web Server\n\n"
+printf "**NOTE: Must have NodeJS installed or this will fail"
+
+cd ../ui
+npm start &
+
+sleep 4
+printf "**Opening IGV in Browser"
+printf "**Only tested on Mac OS X"
+open 'http://localhost:8000'
