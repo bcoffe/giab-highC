@@ -93,8 +93,23 @@ def intersection(bed_file_paths):
         two_lab.close()
         three_lab.close()
 
-        print "All Done.."
         print "Created Output File: " + output_dir + "all_labs_multi_intersect.bed"
+        print "Now intersecting Output file with known genes"
+        known_genes = pybedtools.BedTool("../../ui/data/bed/knownGeneuUCSCHg19.bed")
+        all_labs = pybedtools.BedTool(output_dir + "all_labs_multi_intersect.bed")
+        lab1 = pybedtools.BedTool(output_dir + "1lab.bed")
+        lab2 = pybedtools.BedTool(output_dir + "2lab.bed")
+        lab3 = pybedtools.BedTool(output_dir + "3_or_more_lab.bed")
+
+        print "Intersecting Known genes with all"
+        known_genes.intersect(all_labs).saveas(output_dir+"known_genes_all_labs.bed")
+        print "Intersecting Known genes with 1 Lab"
+        known_genes.intersect(lab1).saveas(output_dir+"known_genes_1_lab.bed")
+        print "Intersecting Known genes with 2 Labs"
+        known_genes.intersect(lab2).saveas(output_dir+"known_genes_2_labs.bed")
+        print "Intersecting Known genes with 3 or more Labs"
+        known_genes.intersect(lab3).saveas(output_dir+"known_genes_3_labs.bed")
+        print "All Done..."
 
     except pybedtools.helpers.BEDToolsError:
         print sys.exc_type
