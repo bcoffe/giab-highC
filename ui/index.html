@@ -58,9 +58,19 @@
             url: 'data/bed/temp/3_or_more_lab.bed'
           }),
           Genoverse.Track.File.BED.extend({
-            name: 'Known Genes',
+            name: '1-Known Genes',
             model: Genoverse.Track.Model.File.BED,
-            url: 'data/bed/temp/known_genes_all_labs.bed'
+            url: 'data/bed/temp/known_genes_1_lab.bed'
+          }),
+          Genoverse.Track.File.BED.extend({
+              name: '2-Known Genes',
+              model: Genoverse.Track.Model.File.BED,
+              url: 'data/bed/temp/known_genes_2_labs.bed'
+          }),
+          Genoverse.Track.File.BED.extend({
+              name: '3-Known Genes',
+              model: Genoverse.Track.Model.File.BED,
+              url: 'data/bed/temp/known_genes_3_labs.bed'
           })
         ]
       }
