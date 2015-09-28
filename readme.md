@@ -16,7 +16,23 @@ Coming Soon...
 
 ## API Reference
 
-Coming Soon...
+To run all the scripts you must have NodeJS installed and in your path.
+NOTE: This has only been tested on Mac OS X and have an internet connection
+
+This command will run all the scripts and load the data into IGV on both a web page and in the Java IGV from broad.
+
+./run.sh
+
+NOTE: It does take a few minutes to run because all the files are downloaded from ftp servers and then intersected.
+When re-running script, you must first kill the local web server that was running in background.
+
+use this command to find local web server:
+
+ps -aux | grep npm
+
+Then look for process number (e.g., 32556) and then use the kill command, replacing {process number} with the number you found.
+
+kill -9 {process number}
 
 ## Tests
 
