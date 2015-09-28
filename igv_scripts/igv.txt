@@ -1,6 +1,6 @@
 new
 genome hg19
-load  ../ui/data/bed/ACMG_56genes.bed
+load  ../ui/data/bed/ACMG_56genesHg19.bed
 load  ../ui/data/bed/temp/1lab.bed
 load  ../ui/data/bed/temp/2lab.bed
 load  ../ui/data/bed/temp/3_or_more_lab.bed

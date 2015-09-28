@@ -1,6 +1,6 @@
 // Ensembl REST API Gene model
 Genoverse.Track.Model.Gene.Ensembl = Genoverse.Track.Model.Gene.extend({
-  url              : '//rest.ensembl.org/overlap/region/human/__CHR__:__START__-__END__?feature=gene;content-type=application/json',
+  url              : '//rest.ensembl.org/overlap/region/human/__CHR__:__START__-__END__?feature=gene;content-type=application/json;coord_system_version=GRCh37',
   dataRequestLimit : 5000000, // As per e! REST API restrictions
 
   // The url above responds in json format, data is an array
