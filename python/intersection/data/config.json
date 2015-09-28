@@ -1,6 +1,6 @@
 {
   "bed_files_dir": "../download/bed/",
-  "output_dir": "intersect_output/",
+  "output_dir": "../../ui/data/bed/temp/",
   "genes_file": "data/ACMG_56genes.bed",
   "sorted_bed_dir": "../download/bed/sorted/"
 

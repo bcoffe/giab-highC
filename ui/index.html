@@ -43,9 +43,19 @@
               url: 'data/bed/ACMG_56genes.bed'
           }),
           Genoverse.Track.File.BED.extend({
-              name: 'Only 1 Lab',
+              name: '1 Lab',
               model: Genoverse.Track.Model.File.BED,
-              url: 'data/bed/GeT-RM-1lab.bed'
+              url: 'data/bed/temp/1lab.bed'
+          }),
+          Genoverse.Track.File.BED.extend({
+            name: '2 Labs',
+            model: Genoverse.Track.Model.File.BED,
+            url: 'data/bed/temp/2lab.bed'
+          }),
+          Genoverse.Track.File.BED.extend({
+            name: '3 or more Labs',
+            model: Genoverse.Track.Model.File.BED,
+            url: 'data/bed/temp/3_or_more_lab.bed'
           })
         ]
       }
