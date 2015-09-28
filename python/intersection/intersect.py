@@ -2,6 +2,7 @@ import json
 import re
 import sys
 import os
+from os import path
 import shutil
 import pybedtools
 
@@ -48,18 +49,18 @@ def created_sorted_dir():
 
 def get_sorted_bed_file_paths():
     sorted_bed_file_paths = []
-    for root, dirs, files in os.walk(bed_files_dir):
-        for file_name in files:
-            full_path_name = os.path.join(root, file_name)
-            if not file_name.startswith('.') \
-                    and file_name.endswith(".bed") \
-                    and not empty_file(full_path_name)\
-                    and not exome_sequence(full_path_name)\
-                    and not nist_sequence(full_path_name)\
-                    and not na19240(full_path_name):
-                sorted = pybedtools.BedTool(full_path_name).sort()
-                sorted.saveas(sorted_bed_dir + file_name)
-                sorted_bed_file_paths.append(sorted_bed_dir + file_name)
+    files = os.listdir(bed_files_dir)
+    for file_name in files:
+        full_path_name = os.path.join(bed_files_dir, file_name)
+        if not file_name.startswith('.') \
+                and file_name.endswith(".bed") \
+                and not empty_file(full_path_name)\
+                and not exome_sequence(full_path_name)\
+                and not nist_sequence(full_path_name)\
+                and not na19240(full_path_name):
+            sorted = pybedtools.BedTool(full_path_name).sort()
+            sorted.saveas(sorted_bed_dir + file_name)
+            sorted_bed_file_paths.append(sorted_bed_dir + file_name)
 
     return sorted_bed_file_paths
 
@@ -68,6 +69,7 @@ def intersection(bed_file_paths):
     pattern = re.compile("^.+?\t.+?\t.+?\t.*?([0-9]+)")
     print "Intersecting files....this may take some time...."
     try:
+        print '\n'.join(bed_file_paths)
         x = pybedtools.BedTool()
         x.multi_intersect(i=bed_file_paths).saveas(output_dir + "all_labs_multi_intersect.bed")
 
