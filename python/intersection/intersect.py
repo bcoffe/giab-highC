@@ -26,7 +26,9 @@ def load_defaults():
 def exome_sequence(file_name):
     return re.search(".Exome.", file_name, re.IGNORECASE) \
            or re.search(".GPS_WUSTL_Sure_Select_All_Exon.", file_name, re.IGNORECASE) \
-           or re.search(".UCSF_WES_Agilent.", file_name, re.IGNORECASE)
+           or re.search(".UCSF_WES_Agilent.", file_name, re.IGNORECASE) \
+           or re.search(".GPS_WUSTL_SureSelect_Exon", file_name, re.IGNORECASE) \
+           or re.search(".HSPH_Xprize", file_name, re.IGNORECASE)
 
 
 def nist_sequence(file_name):
@@ -95,7 +97,7 @@ def intersection(bed_file_paths):
 
         print "Created Output File: " + output_dir + "all_labs_multi_intersect.bed"
         print "Now intersecting Output file with known genes"
-        known_genes = pybedtools.BedTool("../../ui/data/bed/knownGeneuUCSCHg19.bed")
+        known_genes = pybedtools.BedTool("../../ui/data/bed/known_gene_symbols_hg19.bed")
         all_labs = pybedtools.BedTool(output_dir + "all_labs_multi_intersect.bed")
         lab1 = pybedtools.BedTool(output_dir + "1lab.bed")
         lab2 = pybedtools.BedTool(output_dir + "2lab.bed")

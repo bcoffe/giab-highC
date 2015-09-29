@@ -1,0 +1,4 @@
+{
+  "output_dir" : "../../ui/data/bed/",
+  "ucsc_lookup_file" : "data/ucsc_to_gene_lookup.txt"
+}
