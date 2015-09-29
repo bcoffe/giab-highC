@@ -1,11 +1,14 @@
 new
 genome hg19
-load  ../ui/data/bed/ACMG_56genesHg19.bed
-load  ../ui/data/bed/temp/1lab.bed
-load  ../ui/data/bed/temp/2lab.bed
-load  ../ui/data/bed/temp/3_or_more_lab.bed
 load  ../ui/data/bed/temp/known_genes_all_labs.bed
+load  ../ui/data/bed/ACMG_56genesHg19.bed
+load  ../ui/data/bed/temp/acmg_genes_1_lab.bed
+load  ../ui/data/bed/temp/1lab.bed
 load  ../ui/data/bed/temp/known_genes_1_lab.bed
+load  ../ui/data/bed/temp/2lab.bed
 load  ../ui/data/bed/temp/known_genes_2_labs.bed
+load  ../ui/data/bed/temp/acmg_genes_2_labs.bed
+load  ../ui/data/bed/temp/3_or_more_lab.bed
 load  ../ui/data/bed/temp/known_genes_3_labs.bed
+load  ../ui/data/bed/temp/acmg_genes_3_labs.bed
 goto chr1:201,039,500-201,677,765
