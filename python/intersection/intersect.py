@@ -33,7 +33,7 @@ def nist_sequence(file_name):
     return re.search("\wNIST\w", file_name, re.IGNORECASE)
 
 def na19240(file_name):
-    return re.search("\w19240\w", file_name, re.IGNORECASE)
+    return re.search("\w19240", file_name, re.IGNORECASE)
 
 def empty_file(file_name):
     file_size = os.stat(file_name).st_size
