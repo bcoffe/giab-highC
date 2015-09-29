@@ -10,6 +10,10 @@ printf "**Intersecting files (ignoring exome files)\n\n"
 cd ../intersection
 python intersect.py
 
+printf "**Generating Gene Lists\n\n"
+cd ../geneReport
+python gene_report.py
+
 printf "**Loading Tracks into IGV\n\n"
 cd ../../IGV_2.3.60
 ./igv.sh &

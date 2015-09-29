@@ -1,9 +1,11 @@
-import json
 import re
 import sys
 import os
+import shutil
+import json
 
 __author__ = 'coffeybd'
+
 
 
 def get_genes_from_bed(file_name):
@@ -15,9 +17,18 @@ def get_genes_from_bed(file_name):
 
     return set(gene_list)
 
+def create_output_dir():
+    if os.path.exists(output_dir):
+        shutil.rmtree(output_dir)
+        os.makedirs(output_dir)
+    else:
+        os.makedirs(output_dir)
 
 
 def main(argv):
+    global output_dir
+    output_dir = "../../ui/data/csv"
+
     acmg_1_lab = get_genes_from_bed("../../ui/data/bed/temp/acmg_genes_1_lab.bed")
     acmg_2_lab = get_genes_from_bed("../../ui/data/bed/temp/acmg_genes_2_labs.bed")
     acmg_3_lab = get_genes_from_bed("../../ui/data/bed/temp/acmg_genes_3_labs.bed")
@@ -56,13 +67,17 @@ def main(argv):
     known_2_list = sorted(list(known_2_max))
     known_3_list = sorted(list(known_3_lab))
 
-    with open("genes.txt", "w") as fout:
+    create_output_dir()
+
+    with open(output_dir +"/genes.csv", "w") as fout:
         fout.write("ACMG, 1, " + str(len(acmg_1_list)) + ", " + ",".join(acmg_1_list) + "\n")
         fout.write("ACMG, 2, " + str(len(acmg_2_list)) + ", " + ",".join(acmg_2_list) + "\n")
         fout.write("ACMG, 3+, " + str(len(acmg_3_list)) + ", " + ",".join(acmg_3_list) + "\n")
         fout.write("Known, 1, " + str(len(known_1_list)) + ", " + ",".join(known_1_list) + "\n")
         fout.write("Known, 2, " + str(len(known_2_list)) + ", " + ",".join(known_2_list) + "\n")
         fout.write("Known, 3+, " + str(len(known_3_list)) + ", " + ",".join(known_3_list) + "\n")
+
+    print "Created: " + output_dir + "/genes.csv"
 
 
 # Not using the command line argument at moment but may later so just including it for now
