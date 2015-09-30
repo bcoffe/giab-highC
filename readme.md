@@ -28,7 +28,7 @@ When re-running script, you must first kill the local web server that was runnin
 
 use this command to find local web server:
 
-ps -aux | grep npm
+ps -aux | grep node
 
 Then look for process number (e.g., 32556) and then use the kill command, replacing {process number} with the number you found.
 
