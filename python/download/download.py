@@ -33,8 +33,10 @@ def download_files(ftp_connection, path, extension):
                 ftp_connection.retrbinary('RETR %s' % file, open(bed_files_dir+file,"wb").write)
                 print file + " downloaded"
                 if file.endswith(".gz"):
+                    print file + " unzipping.....this can take a few minutes...please wait"
                     with gzip.open(bed_files_dir+file, 'rb') as f:
                         file_content = f.read()
+                        print file + " is being renamed and copied to ../../ui/data/bed/PlatinumConfRegions8.bed"
                         with open("../../ui/data/bed/PlatinumConfRegions8.bed", "w+") as fout:
                             fout.write(file_content)
 
