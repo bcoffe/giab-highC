@@ -4,7 +4,7 @@ This is a collection of quick scripts and 3rd party libraries that were used to 
 
 ## Code Example
 
-Coming Soon...
+The main code is in the Python directory. These scripts are the heart of the workflow. IGV and UI simply display results in graphical IGVs.
 
 ## Motivation
 
