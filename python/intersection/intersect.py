@@ -100,6 +100,9 @@ def intersection(bed_file_paths):
         known_genes = pybedtools.BedTool("../../ui/data/bed/known_gene_symbols_hg19.bed")
         acmg_genes = pybedtools.BedTool("../../ui/data/bed/ACMG_56genesHg19.bed")
 
+        platinum8 = pybedtools.BedTool("../../ui/data/bed/PlatinumConfRegions8.bed")
+        nist = pybedtools.BedTool("../../ui/data/bed/converted_NIST_GIAB_High_confidence_SNPs_indels_v_2_18.bed")
+
         all_labs = pybedtools.BedTool(output_dir + "all_labs_multi_intersect.bed")
         lab1 = pybedtools.BedTool(output_dir + "1lab.bed")
         lab2 = pybedtools.BedTool(output_dir + "2lab.bed")
@@ -109,21 +112,37 @@ def intersection(bed_file_paths):
         known_genes.intersect(all_labs).saveas(output_dir+"known_genes_all_labs.bed")
         print "Intersecting ACMG genes with all"
         acmg_genes.intersect(all_labs).saveas(output_dir+"acmg_genes_all_labs.bed")
+        print "Intersection Platinum 8 with all"
+        platinum8.intersect(all_labs).saveas(output_dir+"plat8_all_labs.bed")
+        print "Intersection NIST 8 with all"
+        nist.intersect(all_labs).saveas(output_dir+"NIST_all_labs.bed")
 
         print "Intersecting Known genes with 1 Lab"
         known_genes.intersect(lab1).saveas(output_dir+"known_genes_1_lab.bed")
         print "Intersecting ACMG genes with 1 Lab"
         acmg_genes.intersect(lab1).saveas(output_dir+"acmg_genes_1_lab.bed")
+        print "Intersection Platinum 8 with 1 Lab"
+        platinum8.intersect(lab1).saveas(output_dir+"plat8_1_lab.bed")
+        print "Intersection NIST 8 with 1 Lab"
+        nist.intersect(lab1).saveas(output_dir+"nist_1_lab.bed")
 
         print "Intersecting Known genes with 2 Labs"
         known_genes.intersect(lab2).saveas(output_dir+"known_genes_2_labs.bed")
         print "Intersecting ACMG genes with 2 Labs"
         acmg_genes.intersect(lab2).saveas(output_dir+"acmg_genes_2_labs.bed")
+        print "Intersection Platinum 8 with 2 Labs"
+        platinum8.intersect(lab2).saveas(output_dir+"plat8_2_labs.bed")
+        print "Intersection NIST 8 with 2 Labs"
+        nist.intersect(lab2).saveas(output_dir+"nist_2_labs.bed")
 
         print "Intersecting Known genes with 3 or more Labs"
         known_genes.intersect(lab3).saveas(output_dir+"known_genes_3_labs.bed")
         print "Intersecting ACMG genes with 3 or more Labs"
         acmg_genes.intersect(lab3).saveas(output_dir+"acmg_genes_3_labs.bed")
+        print "Intersection Platinum 8 with 3 Labs"
+        platinum8.intersect(lab3).saveas(output_dir+"plat8_3_labs.bed")
+        print "Intersection NIST 8 with 3 Labs"
+        nist.intersect(lab3).saveas(output_dir+"nist_3_labs.bed")
 
         print "All Done..."
 
