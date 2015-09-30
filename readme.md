@@ -1,6 +1,6 @@
 ## Synopsis
 
-Establish high-confidence SNP, indel, and homozygous reference genotype calls in close to 100 % of as many clinically-tested regions as possible.
+This is a collection of quick scripts and 3rd party libraries that were used to create a work flow to aid in establishing which regions of NA12878 we had high-confidence in NGS ability to make accurate variant calls. This is an academic project and soley for the purpose of aiding open source research.
 
 ## Code Example
 
