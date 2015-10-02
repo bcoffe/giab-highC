@@ -25,7 +25,7 @@ then
     bgzip ${f%.vcf.gz}.sort.vcf
     tabix ${f%.vcf.gz}.sort.vcf.gz
     rm temp.vcf
-    rm ${f%.gz}.vcf
+    rm ${f%.vcf.gz}.vcf
 elif [[ ${f%.gz} == *".bed" ]]
 then
     for n in ${chroms[@]}
