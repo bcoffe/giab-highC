@@ -21,6 +21,10 @@ awk '{if ($4 < 200) print $0}' vcfnbed_lowconf.sort.tsv > vcfnbed_lowconf_lowqua
 
 ##Create file comparing disagreeing variant calls
 #Example of annotating vcf files to contain intersect data
+grep "vc" vcfnbed_scored.sort.bed | cut -f1,3,4 > vcfnbed_anno
+vcf-sort vcfnbed_anno > vcfnbed_anno.sort
+bgzip vcfnbed_anno.sort
+tabix -s 1 -b 2 vcfnbed_anno.sort.gz
 zcat NISTIntegratedCalls_14datasets_131103_allcall_UGHapMerge_HetHomVarPASS_VQSRv2.19_2mindatasets_5minYesNoRatio_all_nouncert_excludesimplerep_excludesegdups_excludedecoy_excludeRepSeqSTRs_noCNVs.sort.vcf.gz | vcf-annotate -a ../Process/vcfnbed_anno.sort.gz -d key=INFO,ID=INTER,Number=A,Type=String,Description="All intersecting files at this position" -c CHROM,POS,INFO/INTER |bgzip -c> NISTIntegratedCalls_14datasets_131103_allcall_UGHapMerge_HetHomVarPASS_VQSRv2.19_2mindatasets_5minYesNoRatio_all_nouncert_excludesimplerep_excludesegdups_excludedecoy_excludeRepSeqSTRs_noCNVs_anno.sort.vcf.gz
 
 #Pull quality info from each file
