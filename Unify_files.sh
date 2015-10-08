@@ -19,7 +19,7 @@ then
     grep "#" ${f%.gz} > temp.vcf
     for n in ${chroms[@]}
     do
-	awk -v chr=$n '{where=match($1, chr); if (where) print $0}' ${f%.gz} >> temp.vcf || { echo "selecting $n chromosome did not work" 1>&2; exit;}
+	awk -v chr=$n '{if ($1 == chr) print $0}' ${f%.gz} >> temp.vcf || { echo "selecting $n chromosome did not work" 1>&2; exit;}
     done
     vcf-sort -c temp.vcf > ${f%.vcf*}.sort.vcf
     bgzip ${f%.vcf*}.sort.vcf
@@ -31,7 +31,7 @@ elif [[ ${f%.gz} == *".bed" ]]
 then
     for n in ${chroms[@]}
     do
-	awk -v chr=$n '{where=match($1, chr); if (where) print $0}' ${f%.gz} >> temp.bed || { echo "selecting $n chromosome did not work" 1>&2; exit;}
+	awk -v chr=$n '{if ($1 == chr) print $0}' ${f%.gz} >> temp.bed || { echo "selecting $n chromosome did not work" 1>&2; exit;}
     done
     bedtools sort -i temp.bed > ${f%.bed*}.sort.bed || { echo "sort did not work" 1>&2; exit;}
     bgzip ${f%.bed*}.sort.bed || { echo "bgzip did not work" 1>&2; exit;}
