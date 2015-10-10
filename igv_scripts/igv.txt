@@ -1,6 +1,9 @@
 new
 genome hg19
 
+# Just the exonic regions that were not in the nist file
+load ../ui/data/bed/temp/exons_minus_nist.bed
+
 # Just the exonic regions for the genes that at least 1 lab has tested somewhere
 load ../ui/data/bed/temp/exons_for_genes.bed
 

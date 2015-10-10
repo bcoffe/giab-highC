@@ -1,0 +1,5 @@
+{
+  "exons_file" : "../../ui/data/bed/temp/exons_for_genes.bed",
+  "nist_file" : "../../ui/data/bed/converted_NIST_GIAB_High_confidence_SNPs_indels_v_2_18.bed",
+  "output_dir": "../../ui/data/bed/temp/"
+}

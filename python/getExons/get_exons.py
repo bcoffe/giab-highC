@@ -70,7 +70,7 @@ def get_cli(argv):
 
     known_gene_flag = False
     acmg_flag = True
-    labs = ['3+']
+    labs = ['1','2','3+']
 
     # try:
     #     opts, args = getopt.getopt(argv, 'l')
