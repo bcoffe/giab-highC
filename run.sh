@@ -10,23 +10,30 @@ printf "**Intersecting files (ignoring exome files)\n\n"
 cd ../intersection
 python intersect.py
 
-printf "**Replacing UCSC Gene Name with Gene Symbols"
-
 printf "**Generating Gene Lists\n\n"
 cd ../geneReport
 python gene_report.py
+
+printf "**Replacing UCSC Gene Name with Gene Symbols is no longer requried"
+
+printf "**Making Database connection to UCSC to get Exons for ACMG Genes"
+printf "-----By default only getting exons for ACMG Genes that were tested by 1, 2, or 3+ labs---"
+printf "NOTE: This default can be changed with a one line change to the code to either remove a lab or to include knownGenes"
+cd ../getExons
+python get_exons.py
 
 printf "**Loading Tracks into IGV\n\n"
 cd ../../IGV_2.3.60
 ./igv.sh &
 
-printf "**Starting Local Web Server\n\n"
-printf "**NOTE: Must have NodeJS installed or this will fail"
+# Section below is for creating a web based report
+# printf "**Starting Local Web Server\n\n"
+# printf "**NOTE: Must have NodeJS installed or this will fail"
 
-cd ../ui
-npm start &
+# cd ../ui
+# npm start &
 
-sleep 4
-printf "**Opening IGV in Browser"
-printf "**Only tested on Mac OS X"
-open 'http://localhost:8000'
+# sleep 4
+# printf "**Opening IGV in Browser"
+# printf "**Only tested on Mac OS X"
+# open 'http://localhost:8000'

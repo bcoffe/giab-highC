@@ -1,0 +1,4 @@
+{
+  "genes_file" : "../../ui/data/json/genes.json",
+  "output_file" : "../../ui/data/bed/temp/exons_for_genes.bed"
+}
