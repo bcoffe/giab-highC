@@ -1,5 +1,6 @@
 {
   "bed_files_dir": "../download/bed/",
+  "static_bed_file" :"../../ui/data/bed/NA12878-invitae-DD.bed",
   "output_dir": "../../ui/data/bed/temp/",
   "genes_file": "data/ACMG_56genes.bed",
   "sorted_bed_dir": "../download/bed/sorted/"

@@ -10,6 +10,8 @@ printf "**Intersecting files (ignoring exome files)\n\n"
 cd ../intersection
 python intersect.py
 
+printf "**Replacing UCSC Gene Name with Gene Symbols"
+
 printf "**Generating Gene Lists\n\n"
 cd ../geneReport
 python gene_report.py

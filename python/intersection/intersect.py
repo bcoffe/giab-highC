@@ -5,6 +5,7 @@ import os
 from os import path
 import shutil
 import pybedtools
+import ntpath
 
 __author__ = 'Brent Coffey'
 
@@ -16,11 +17,13 @@ def load_defaults():
     global output_dir
     global genes_file
     global sorted_bed_dir
+    global static_bed_file
 
     bed_files_dir = config_data['bed_files_dir']
     output_dir = config_data['output_dir']
     genes_file = config_data['genes_file']
     sorted_bed_dir = config_data['sorted_bed_dir']
+    static_bed_file = config_data['static_bed_file']
 
 
 def exome_sequence(file_name):
@@ -64,6 +67,9 @@ def get_sorted_bed_file_paths():
             sorted.saveas(sorted_bed_dir + file_name)
             sorted_bed_file_paths.append(sorted_bed_dir + file_name)
 
+    sorted =pybedtools.BedTool(static_bed_file).sort()
+    sorted.saveas(sorted_bed_dir + ntpath.basename(static_bed_file))
+    sorted_bed_file_paths.append(sorted_bed_dir + ntpath.basename(static_bed_file))
     return sorted_bed_file_paths
 
 
