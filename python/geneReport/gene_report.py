@@ -27,7 +27,7 @@ def create_output_dir():
 
 def main(argv):
     global output_dir
-    output_dir = "../../ui/data/csv"
+    output_dir = "../../ui/data/json"
 
     acmg_1_lab = get_genes_from_bed("../../ui/data/bed/temp/acmg_genes_1_lab.bed")
     acmg_2_lab = get_genes_from_bed("../../ui/data/bed/temp/acmg_genes_2_labs.bed")
@@ -69,15 +69,20 @@ def main(argv):
 
     create_output_dir()
 
-    with open(output_dir +"/genes.csv", "w") as fout:
-        fout.write("ACMG, 1, " + str(len(acmg_1_list)) + ", " + ",".join(acmg_1_list) + "\n")
-        fout.write("ACMG, 2, " + str(len(acmg_2_list)) + ", " + ",".join(acmg_2_list) + "\n")
-        fout.write("ACMG, 3+, " + str(len(acmg_3_list)) + ", " + ",".join(acmg_3_list) + "\n")
-        fout.write("Known, 1, " + str(len(known_1_list)) + ", " + ",".join(known_1_list) + "\n")
-        fout.write("Known, 2, " + str(len(known_2_list)) + ", " + ",".join(known_2_list) + "\n")
-        fout.write("Known, 3+, " + str(len(known_3_list)) + ", " + ",".join(known_3_list) + "\n")
+    with open(output_dir +"/genes.json", "w") as fout:
+        acmg1_dict = { "intersect" : "acmg", "lab_agree":"1", "gene_count": str(len(acmg_1_list)), "genes": acmg_1_list}
+        acmg2_dict = { "intersect" : "acmg", "lab_agree":"2", "gene_count": str(len(acmg_2_list)), "genes": acmg_2_list}
+        acmg3_dict = { "intersect" : "acmg", "lab_agree":"3+", "gene_count": str(len(acmg_3_list)), "genes": acmg_3_list}
 
-    print "Created: " + output_dir + "/genes.csv"
+        known1_dict = { "intersect" : "KnownGene", "lab_agree":"1", "gene_count": str(len(known_1_list)), "genes": known_1_list}
+        known2_dict = { "intersect" : "KnownGene", "lab_agree":"2", "gene_count": str(len(known_2_list)), "genes": known_2_list}
+        known3_dict = { "intersect" : "KnownGene", "lab_agree":"3+", "gene_count": str(len(known_3_list)), "genes": known_3_list}
+        intersect_list = [acmg1_dict, acmg2_dict, acmg3_dict, known1_dict, known2_dict, known3_dict]
+        gene_dict = {"intersects" : intersect_list}
+
+        fout.write(json.dumps(gene_dict,indent=4, sort_keys=True))
+
+    print "Created: " + output_dir + "/genes.json"
 
 
 # Not using the command line argument at moment but may later so just including it for now
