@@ -10,8 +10,9 @@ def perform_intersection ():
 
         print "Subtracting/Removing Nist Regions from Gene Exons file"
         print "This make take a few minutes....."
-        delta = exons - nist #.intersect(nist)
-        delta.saveas(output_dir + "exons_minus_nist.bed")
+        #delta = exons - nist #.intersect(nist)
+        exons.subtract(nist).saveas(output_dir + "exons_minus_nist.bed")
+        #delta.saveas(output_dir + "exons_minus_nist.bed")
 
         print "Delta saved as " + output_dir + "exons_minus_nist.bed"
 
