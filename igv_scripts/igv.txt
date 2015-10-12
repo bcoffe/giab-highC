@@ -4,12 +4,13 @@ genome hg19
 # Just the exonic regions that were not in the nist file
 load ../ui/data/bed/temp/exons_minus_nist.bed
 
+load ../ui/data/bed/converted_NIST_GIAB_High_confidence_SNPs_indels_v_2_18.bed
 # Just the exonic regions for the genes that at least 1 lab has tested somewhere
 load ../ui/data/bed/temp/exons_for_genes.bed
 
 # Full Gene area (Doesn't have exons)
 load  ../ui/data/bed/ACMG_56genesHg19.bed
-load  ../ui/data/bed/known_gene_symbols_hg19.bed
+#load  ../ui/data/bed/known_gene_symbols_hg19.bed
 
 # load  ../ui/data/bed/temp/1lab.bed
 # load  ../ui/data/bed/temp/known_genes_1_lab.bed
@@ -29,5 +30,5 @@ load  ../ui/data/bed/known_gene_symbols_hg19.bed
 # load  ../ui/data/bed/temp/acmg_genes_3_labs.bed
 # load  ../ui/data/bed/temp/plat8_3_labs.bed
 # load  ../ui/data/bed/temp/nist_3_labs.bed
-
-goto chr1:201,039,500-201,677,765
+goto chr1:201,342,236-201,342,398
+#goto chr1:201,039,500-201,677,765

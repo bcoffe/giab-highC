@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#printf "**Downloading files from FTP Site....\n\n"
-#cd python/download
-#python download.py
+printf "**Downloading files from FTP Site....\n\n"
+cd python/download
+python download.py
 
 printf "\n**File Download complete\n\n"
 
 printf "**Intersecting files (ignoring exome files)\n\n"
-cd python/intersection
+cd ../intersection
 python intersect.py
 
 printf "**Generating Gene Lists\n\n"
