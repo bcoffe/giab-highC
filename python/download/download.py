@@ -4,11 +4,12 @@ import json
 import gzip
 import os
 import sys
+import re
 
 __author__ = 'Brent Coffey'
 
 # This method is modified from http://stackoverflow.com/questions/2605119/downloading-a-directory-tree-with-ftplib
-def download_files(ftp_connection, path, extension):
+def download_files(ftp_connection, path, extension, write_dir):
     try:
         ftp_connection.cwd(path)
 
@@ -25,19 +26,22 @@ def download_files(ftp_connection, path, extension):
             # This will check if file is folder:
             ftp_connection.cwd(path + "/" + file + "/")
             # If this is a folder go into it
-            download_files(ftp_connection, path + "/" + file + "/", extension)
+            download_files(ftp_connection, path + "/" + file + "/", extension, write_dir)
         # If this except is called that means we have a file not a directory so lets save it if its a bed file
         except ftplib.error_perm:
-            # Only download bed files
+            # Only files with given extension
             if file.endswith(extension):
-                ftp_connection.retrbinary('RETR %s' % file, open(bed_files_dir+file,"wb").write)
+                ftp_connection.retrbinary('RETR %s' % file, open(write_dir+file,"wb").write)
                 print file + " downloaded"
-                if file.endswith(".gz"):
+                if file.endswith(".gz") \
+                        and not re.search(".BI.", file, re.IGNORECASE)\
+                        and not re.search (".NIST_NA12878.", file, re.IGNORECASE):
                     print file + " unzipping.....this can take a few minutes...please wait"
-                    with gzip.open(bed_files_dir+file, 'rb') as f:
+                    with gzip.open(write_dir+file, 'rb') as f:
                         file_content = f.read()
-                        print file + " is being renamed and copied to ../../ui/data/bed/PlatinumConfRegions8.bed"
-                        with open("../../ui/data/bed/PlatinumConfRegions8.bed", "w+") as fout:
+                        file_name_no_extension = os.path.splitext(file)[0]
+                        print file_name_no_extension + " is being copied to /vcf"
+                        with open("vcf/"+file_name_no_extension, "w+") as fout:
                             fout.write(file_content)
 
 
@@ -49,34 +53,40 @@ def load_defaults():
     global base_dir
     global platinum_site
     global platinum_base_dir
+    global vcf_lab_dir
+    global vcf_gz_files_dir
 
     bed_files_dir = config_data['bed_files_dir']
     ftp_site = config_data['ftp_site']
     base_dir = config_data['base_dir']
     platinum_site = config_data['platinum_site']
     platinum_base_dir = config_data['platinum_base_dir']
+    vcf_lab_dir = config_data['vcf_lab_dir']
+    vcf_gz_files_dir = config_data['vcf_gz_files_dir']
 
 
-def create_download_dir():
-    if os.path.exists(bed_files_dir):
-        shutil.rmtree(bed_files_dir)
-        os.makedirs(bed_files_dir)
+def create_download_dir(write_dir):
+    if os.path.exists(write_dir):
+        shutil.rmtree(write_dir)
+        os.makedirs(write_dir)
     else:
-        os.makedirs(bed_files_dir)
+        os.makedirs(write_dir)
 
 
-def get_bed_files(site, dir, extension):
+def get_files(site, dir, extension, write_dir):
     ftp_connection = ftplib.FTP(site)
     ftp_connection.login()
     ftp_connection.cwd(dir)
-    download_files(ftp_connection, dir, extension)
+    download_files(ftp_connection, dir, extension, write_dir)
 
 
 def main(argv):
     load_defaults()
-    create_download_dir()
-    get_bed_files(ftp_site, base_dir, '.bed')
-    get_bed_files(platinum_site, platinum_base_dir, '.bed.gz')
+    create_download_dir(bed_files_dir)
+    create_download_dir(vcf_gz_files_dir)
+    get_files(ftp_site, base_dir, '.bed', bed_files_dir)
+    get_files(ftp_site, vcf_lab_dir, '.vcf.gz', vcf_gz_files_dir)
+    get_files(platinum_site, platinum_base_dir, '.bed.gz', bed_files_dir)
 
 
 # Not using the command line argument at moment but may later so just including it for now

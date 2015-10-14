@@ -1,6 +1,9 @@
 new
 genome hg19
 
+# Just the exonic regions that were not in the nist and were in a VCF file
+load ../ui/data/bed/temp/exons_minus_nist_labs_multi_intersect.bed 
+                         
 # Just the exonic regions that were not in the nist file
 load ../ui/data/bed/temp/exons_minus_nist.bed
 

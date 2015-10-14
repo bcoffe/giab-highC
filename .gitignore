@@ -3,3 +3,6 @@
 *log
 /data/bed/temp/
 ui/data/json/
+python/download/bed/
+python/download/vcf/
+python/download/vcf/gz/

@@ -26,6 +26,10 @@ printf "**Removing any region that is NIST 2.19 from the above exons\n\n"
 cd ../removeNISTRegions
 python remove_nist_regions.py
 
+printf "**Intersecting exons_minus_nist.bed (created in 'removeNISTRegions' script) with all lab VCFs\n\n"
+cd ../intersectVariants
+python intersect_variants.py
+
 printf "**Loading Tracks into IGV\n\n"
 cd ../../IGV_2.3.60
 ./igv.sh &
