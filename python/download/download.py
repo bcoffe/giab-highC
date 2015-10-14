@@ -44,14 +44,19 @@ def download_files(ftp_connection, path, extension, write_dir):
                         # and not re.search (".NIST_NA12878.", file, re.IGNORECASE):
                     print file + " unzipping.....this can take a few minutes...please wait"
                     with gzip.open(write_dir+file, 'rb') as fin:
-                        #file_content = f.read()
+
                         file_name_no_extension = os.path.splitext(file)[0]
-                        print file_name_no_extension + " is being copied to /vcf"
-                        with open("vcf/"+file_name_no_extension, "w+") as fout:
-                            for line in fin:
-                                if chromosome(line):
-                                    line = 'chr' + line
-                                fout.write(line)
+                        if extension == ".vcf.gz":
+                            print file_name_no_extension + " is being copied to /vcf"
+                            with open("vcf/"+file_name_no_extension, "w+") as fout:
+                                for line in fin:
+                                    if chromosome(line):
+                                        line = 'chr' + line
+                                    fout.write(line)
+                        else:
+                            with open("bed/"+file_name_no_extension, "w+") as fout:
+                                for line in fin:
+                                    fout.write(line)
 
 
 
