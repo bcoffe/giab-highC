@@ -31,7 +31,8 @@ def exome_sequence(file_name):
            or re.search(".GPS_WUSTL_Sure_Select_All_Exon.", file_name, re.IGNORECASE) \
            or re.search(".UCSF_WES_Agilent.", file_name, re.IGNORECASE) \
            or re.search(".GPS_WUSTL_SureSelect_Exon", file_name, re.IGNORECASE) \
-           or re.search(".HSPH_Xprize", file_name, re.IGNORECASE)
+           or re.search(".HSPH_Xprize", file_name, re.IGNORECASE)\
+           or re.search("ConfidentRegion.", file_name, re.IGNORECASE)
 
 
 def nist_sequence(file_name):

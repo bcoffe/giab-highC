@@ -4,6 +4,7 @@ import json
 import gzip
 import os
 import sys
+import re
 
 __author__ = 'Brent Coffey'
 
@@ -37,26 +38,28 @@ def download_files(ftp_connection, path, extension, write_dir):
         except ftplib.error_perm:
             # Only files with given extension
             if file.endswith(extension):
-                ftp_connection.retrbinary('RETR %s' % file, open(write_dir+file,"wb").write)
-                print file + " downloaded"
-                if file.endswith(".gz"):
-                        # and not re.search(".BI.", file, re.IGNORECASE)\
-                        # and not re.search (".NIST_NA12878.", file, re.IGNORECASE):
-                    print file + " unzipping.....this can take a few minutes...please wait"
-                    with gzip.open(write_dir+file, 'rb') as fin:
 
-                        file_name_no_extension = os.path.splitext(file)[0]
-                        if extension == ".vcf.gz":
-                            print file_name_no_extension + " is being copied to /vcf"
-                            with open("vcf/"+file_name_no_extension, "w+") as fout:
-                                for line in fin:
-                                    if chromosome(line):
-                                        line = 'chr' + line
-                                    fout.write(line)
-                        else:
-                            with open("bed/"+file_name_no_extension, "w+") as fout:
-                                for line in fin:
-                                    fout.write(line)
+                if not (path == "/giab/ftp/data/NA12878/analysis/RTG_small_variants_01132014/")\
+                        or re.search(file, "phasing_annotated-with-PHQ.vcf.gz", re.IGNORECASE):
+                    ftp_connection.retrbinary('RETR %s' % file, open(write_dir+file,"wb").write)
+                    print file + " downloaded"
+                    if file.endswith(".gz"):
+                            # and not re.search(".BI.", file, re.IGNORECASE)\
+                            # and not re.search (".NIST_NA12878.", file, re.IGNORECASE):
+                        print file + " unzipping.....this can take a few minutes...please wait"
+                        with gzip.open(write_dir+file, 'rb') as fin:
+                            file_name_no_extension = os.path.splitext(file)[0]
+                            if extension == ".vcf.gz":
+                                print file_name_no_extension + " is being copied to /vcf"
+                                with open("vcf/"+file_name_no_extension, "w+") as fout:
+                                    for line in fin:
+                                        if chromosome(line):
+                                            line = 'chr' + line
+                                        fout.write(line)
+                            else:
+                                with open("bed/"+file_name_no_extension, "w+") as fout:
+                                    for line in fin:
+                                        fout.write(line)
 
 
 
@@ -70,6 +73,9 @@ def load_defaults():
     global platinum_base_dir
     global vcf_lab_dir
     global vcf_gz_files_dir
+    global nist_vcf
+    global giab_vcf
+    global rtg_vcf
 
     bed_files_dir = config_data['bed_files_dir']
     ftp_site = config_data['ftp_site']
@@ -78,6 +84,11 @@ def load_defaults():
     platinum_base_dir = config_data['platinum_base_dir']
     vcf_lab_dir = config_data['vcf_lab_dir']
     vcf_gz_files_dir = config_data['vcf_gz_files_dir']
+    nist_vcf = config_data['nist_vcf']
+    giab_vcf = config_data['giab_vcf']
+    rtg_vcf = config_data['rtg_vcf']
+
+
 
 
 def create_download_dir(write_dir):
@@ -102,6 +113,11 @@ def main(argv):
     get_files(ftp_site, base_dir, '.bed', bed_files_dir)
     get_files(ftp_site, vcf_lab_dir, '.vcf.gz', vcf_gz_files_dir)
     get_files(platinum_site, platinum_base_dir, '.bed.gz', bed_files_dir)
+    get_files(platinum_site, platinum_base_dir, '.vcf.gz', vcf_gz_files_dir)
+    get_files(platinum_site, nist_vcf, '.vcf.gz', vcf_gz_files_dir)
+    get_files(platinum_site, giab_vcf, '.vcf.gz', vcf_gz_files_dir)
+    get_files(platinum_site, rtg_vcf, '.vcf.gz', vcf_gz_files_dir)
+
 
 
 # Not using the command line argument at moment but may later so just including it for now

@@ -33,7 +33,7 @@ def main(argv):
     load_defaults()
     perform_intersection()
 
-
+#"nist_file" : "../../ui/data/bed/converted_NIST_GIAB_High_confidence_SNPs_indels_v_2_18.bed",
 # Not using the command line argument at moment but may later so just including it for now
 if __name__ == '__main__':
     main(sys.argv[1:])

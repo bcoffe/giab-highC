@@ -1,6 +1,6 @@
 {
   "vcf_files_dir": "../download/vcf/",
-  "static_vcf_file": "../../ui/data/vcf/NA12878.vcf",
+  "static_vcf_file": "../../ui/data/vcf/NA12878-invitae-DD.recode.vcf",
   "exon_minus_nist_file" :"../../ui/data/bed/temp/exons_minus_nist.bed",
   "output_dir": "../../ui/data/bed/temp/"
 }
