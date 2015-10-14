@@ -4,9 +4,15 @@ import json
 import gzip
 import os
 import sys
-import re
 
 __author__ = 'Brent Coffey'
+
+def chromosome (s):
+    if s[:1] == '#':
+        return False
+    else:
+        return True
+
 
 # This method is modified from http://stackoverflow.com/questions/2605119/downloading-a-directory-tree-with-ftplib
 def download_files(ftp_connection, path, extension, write_dir):
@@ -33,16 +39,20 @@ def download_files(ftp_connection, path, extension, write_dir):
             if file.endswith(extension):
                 ftp_connection.retrbinary('RETR %s' % file, open(write_dir+file,"wb").write)
                 print file + " downloaded"
-                if file.endswith(".gz") \
-                        and not re.search(".BI.", file, re.IGNORECASE)\
-                        and not re.search (".NIST_NA12878.", file, re.IGNORECASE):
+                if file.endswith(".gz"):
+                        # and not re.search(".BI.", file, re.IGNORECASE)\
+                        # and not re.search (".NIST_NA12878.", file, re.IGNORECASE):
                     print file + " unzipping.....this can take a few minutes...please wait"
-                    with gzip.open(write_dir+file, 'rb') as f:
-                        file_content = f.read()
+                    with gzip.open(write_dir+file, 'rb') as fin:
+                        #file_content = f.read()
                         file_name_no_extension = os.path.splitext(file)[0]
                         print file_name_no_extension + " is being copied to /vcf"
                         with open("vcf/"+file_name_no_extension, "w+") as fout:
-                            fout.write(file_content)
+                            for line in fin:
+                                if chromosome(line):
+                                    line = 'chr' + line
+                                fout.write(line)
+
 
 
 def load_defaults():
