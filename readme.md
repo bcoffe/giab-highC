@@ -17,7 +17,17 @@ Coming Soon...
 ## API Reference
 
 To run all the scripts you must have NodeJS, Java 6 or higher, python, and pybedtools installed and in your path.
-NOTE: This has only been tested on Mac OS X and have an internet connection. This also assumes one has python 2.7.10 and pybedtools installed.
+NOTE: This has only been tested on Mac OS X and have an internet connection. This also assumes both Python 2.7.x and the following modules are installed (pip may be used to install most of these):
+
+1. pybedtools
+2. mysql connector (NOTE: Not installed from pip, dowload from Mysql Site)
+3. shutil
+4. ftplib
+5. gzip
+6. re
+7. os
+8. json
+9. sys
 
 This command will run all the scripts and load the data into IGV on both a web page and in the Java IGV from broad.
 
