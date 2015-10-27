@@ -8,7 +8,8 @@ import re
 
 __author__ = 'Brent Coffey'
 
-def chromosome (s):
+
+def chromosome(s):
     if s[:1] == '#':
         return False
     else:
@@ -62,7 +63,6 @@ def download_files(ftp_connection, path, extension, write_dir):
                                         fout.write(line)
 
 
-
 def load_defaults():
     config_data = json.loads(open('config.json').read())
 
@@ -87,8 +87,6 @@ def load_defaults():
     nist_vcf = config_data['nist_vcf']
     giab_vcf = config_data['giab_vcf']
     rtg_vcf = config_data['rtg_vcf']
-
-
 
 
 def create_download_dir(write_dir):
