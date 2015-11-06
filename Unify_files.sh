@@ -2,8 +2,6 @@
 
 files=( "$@" )
 chroms=( {1..22} X Y M )
-bed=".bed"
-vcf=".vcf"
 for f in ${files[@]}
 do
 echo "Cleaning up $f"
