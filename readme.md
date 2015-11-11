@@ -50,7 +50,7 @@ Coming Soon...
 
 ## Contributors
 
-In Alphabetical Order -- Coffey, Brent: George, Kevin: Hitz, Jordon: Rivero, Juan
+In Alphabetical Order -- Coffey, Brent: George, Kevin: Hitz, Jordan: Rivero, Juan
 
 ## License
 
